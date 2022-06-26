@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+    <script>
+
+
+
+        $(() => {
+            console.log("DOMContent loaded");
+
+
+            let array1 = [{ studid: 2, studname: "Vinay", marks: 95 },
+            { studid: 18, studname: "Pranali", marks: 85 },
+            { studid: 22, studname: "Rohit", marks: 80 },
+            { studid: 26, studname: "Rohan", marks: 100 },
+            { studid: 15, studname: "Vighnesh", marks: 65 }];
+
+            $('#add').click(() => {
+                console.log("click event");
+                let StudentId = $('#studid').val();
+                console.log(StudentId);
+                
+                   // console.log(array1);
+                let output = getStudentId(StudentId);
+
+                if (output.result) {
+                    $('#msg').text("StudentId already present");
+                    $("#studname").val(output.arr.studname);
+                    $("#marks").val(output.arr.marks);
+                    console.log(array1);
+                }
+                else {
+                    $('#msg').text("StudentId to be added");
+                    let input = {
+                    studid: $("#studid").val(),
+                    studname: $("#studname").val(), marks: $("#marks").val()
+                };
+                    array1.push(input);
+                    console.log(array1);
+                }
+            });
+
+            function getStudentId(studid) {
+                let output = {result:false,arr:{ }};
+                for (let i = 0; i < array1.length; i++) {
+                    if (array1[i].studid == studid) {
+                        output.arr= array1[i];
+                        output.result = true;
+                    }
+                }
+                return output;
+
+            }
+
+        });
+    </script>
+</head>
+
+<body>
+    <input type="text" placeholder="StudId" id="studid"><span id="msg">msg</span><br><br>
+    <input type="text" placeholder="Studname" id="studname"><br><br>
+    <input type="text" placeholder="marks" id="marks"><br><br>
+    <br>
+    <button id="add">add </button>
+    <button id="update">update </button>
+    <button id="delete">delete </button>
+    <hr />
+    <p id="contents"> all items show it here</p>
+</body>
+
+</html>
